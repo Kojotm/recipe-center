@@ -55,7 +55,7 @@ namespace InitialiseDatabase
                         Ingredients = item.GetValue("ingredients").ToObject<string[]>(),
                         Categories = item.GetValue("categories").ToObject<string[]>(),
                         Calories = item.GetValue("calories").ToObject<double?>(),
-                        DurationInMinutes = rnd.Next(10, 501),
+                        DurationInMinutes = rnd.Next(10, 301),
                         Servings = rnd.Next(2, 7),
                         NutritionInfo = new NutritionInfo()
                         {

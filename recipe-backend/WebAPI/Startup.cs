@@ -20,7 +20,7 @@ namespace WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<RecipeContext>(opt => opt.UseInMemoryDatabase("Recipes"));
+            services.AddDbContext<RecipeContext>(opt => opt.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=LocalRecipeDB"));
             services.AddControllers();
         }
 
