@@ -14,7 +14,8 @@ namespace Models
         public string[] Categories { get; set; }
         public double? Calories { get; set; }
         public int? Servings { get; set; }
-        public NutritionInfo NutritionInfo { get; set; }
+        public virtual int? NutritionInfoId { get; set; }
+        public virtual NutritionInfo NutritionInfo { get; set; }
         public int? DurationInMinutes { get; set; }
     }
 }
