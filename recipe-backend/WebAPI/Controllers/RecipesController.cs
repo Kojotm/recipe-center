@@ -23,7 +23,8 @@ namespace WebAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Recipe>>> GetRecipes()
         {
-            return await _context.Recipes.ToListAsync();
+            // TODO: FIX AMOUNT LIMITING
+            return await _context.Recipes.Take(20).ToListAsync();
         }
 
         // GET: api/Recipes/5

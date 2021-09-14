@@ -8,11 +8,15 @@ import { Observable } from 'rxjs';
     providedIn: 'root'
 })
 export class RecipeService {
-    private readonly endpoint = 'api/recipes/20';
+    private readonly endpoint = 'api/recipes/';
 
     constructor(private http: HttpClient) { }
 
-    loadRecipes() : Observable<Recipe | undefined> {
-        return this.http.get<Recipe>(`${environment.apiEndpoint}${this.endpoint}`);
+    getRecipes() : Observable<Recipe[]> {
+        return this.http.get<Recipe[]>(`${environment.apiEndpoint}${this.endpoint}`);
+    }
+
+    getRecipeById(id: number) : Observable<Recipe | undefined> {
+        return this.http.get<Recipe>(`${environment.apiEndpoint}${this.endpoint}${id}`);
     }
 }
