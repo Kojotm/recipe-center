@@ -1,0 +1,12 @@
+<app-filter slot="left"></app-filter>
+<ul class="recipes">
+    <li *ngFor="let recipe of recipes" (click)="onSelect(recipe)">{{recipe.name}}</li>
+</ul>
+
+<div *ngIf="selectedRecipe">
+    <h2>{{selectedRecipe.name | uppercase}}</h2>
+    <div>
+        <label for="recipe-name">Recipe: </label>
+        <input id="recipe-name" [(ngModel)]="selectedRecipe.name" placeholder="name">
+    </div>
+</div>
