@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -21,10 +22,17 @@ namespace WebAPI.Controllers
 
         // GET: api/Recipes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Recipe>>> GetRecipes()
+        public ActionResult<PageResult<Recipe>> GetRecipes(int pageNumber = 1, int pageSize = 20)
         {
-            // TODO: FIX AMOUNT LIMITING
-            return await _context.Recipes.Take(20).ToListAsync();
+            var count = _context.Recipes.Count();
+            var result = new PageResult<Recipe>
+            {
+                Count = count,
+                PageIndex = pageNumber,
+                PageSize = pageSize,
+                Items =  _context.Recipes.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList()
+            };
+            return new ActionResult<PageResult<Recipe>>(result);
         }
 
         // GET: api/Recipes/5

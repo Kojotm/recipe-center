@@ -12,9 +12,12 @@ import { FormsModule } from '@angular/forms';
 import { RecipeDetailComponent } from './components/recipe-detail/recipe-detail.component';
 import { RecipeCardComponent } from './components/recipe-card/recipe-card.component';
 import { FilterComponent } from './components/filter/filter.component';
+import { MatCardModule } from '@angular/material/card'; 
 
 const MaterialComponents = [
-  MatToolbarModule
+  MatToolbarModule,
+  MatCardModule
+
 ]
 
 @NgModule({
