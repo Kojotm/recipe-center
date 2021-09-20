@@ -13,6 +13,8 @@ import { RecipeDetailComponent } from './components/recipe-detail/recipe-detail.
 import { RecipeCardComponent } from './components/recipe-card/recipe-card.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { MatCardModule } from '@angular/material/card'; 
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 const MaterialComponents = [
   MatToolbarModule,
@@ -34,6 +36,8 @@ const MaterialComponents = [
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
+    InfiniteScrollModule,
+    NgxSpinnerModule,
     MaterialComponents
   ],
   providers: [RecipeService],

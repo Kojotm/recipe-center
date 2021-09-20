@@ -22,17 +22,10 @@ namespace WebAPI.Controllers
 
         // GET: api/Recipes
         [HttpGet]
-        public ActionResult<PageResult<Recipe>> GetRecipes(int pageNumber = 1, int pageSize = 20)
+        public ActionResult<Recipe[]> GetRecipes(int pageNumber = 1, int pageSize = 20)
         {
-            var count = _context.Recipes.Count();
-            var result = new PageResult<Recipe>
-            {
-                Count = count,
-                PageIndex = pageNumber,
-                PageSize = pageSize,
-                Items =  _context.Recipes.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList()
-            };
-            return new ActionResult<PageResult<Recipe>>(result);
+            var result = _context.Recipes.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToArray();
+            return new ActionResult<Recipe[]>(result);
         }
 
         // GET: api/Recipes/5
