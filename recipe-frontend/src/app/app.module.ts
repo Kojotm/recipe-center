@@ -17,7 +17,6 @@ import { MatCardModule } from '@angular/material/card';
 const MaterialComponents = [
   MatToolbarModule,
   MatCardModule
-
 ]
 
 @NgModule({

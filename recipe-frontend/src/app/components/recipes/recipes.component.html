@@ -1,4 +1,6 @@
 <div class="recipes">
     <app-filter slot="left"></app-filter>
-    <app-recipe-card [recipe]="recipe" *ngFor="let recipe of recipes.items"></app-recipe-card>
+    <div>
+        <app-recipe-card [recipe]="recipe" *ngFor="let recipe of recipes.items"></app-recipe-card>
+    </div>
 </div>
