@@ -1,16 +1,15 @@
 <div class="recipes">
-    <app-filter slot="left"></app-filter>
-    <div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()" [scrollWindow]="true">
+    <app-filter></app-filter>
+    <div class="scrolling-recipes" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()" [scrollWindow]="true">
         <app-recipe-card [recipe]="recipe" *ngFor="let recipe of recipes"></app-recipe-card>
-        <div style="position: relative; padding: 2rem;">
-            <ngx-spinner
-                bdOpacity = 0
-                bdColor = "white"
-                size = "default"
-                color = "grey"
-                type = "pacman"
-                [fullScreen] = "false">
-            </ngx-spinner>
-          </div>
+        <ngx-spinner
+            class="spinner"
+            bdOpacity = 0
+            bdColor = "white"
+            size = "default"
+            color = "grey"
+            type = "pacman"
+            [fullScreen] = "false">
+        </ngx-spinner>
     </div>
 </div>

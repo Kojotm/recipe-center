@@ -25,9 +25,13 @@ export class RecipesComponent implements OnInit {
   }
 
   initLoad(pageNumber: number, pageSize: number){
+    this.spinner.show();
     const params = new HttpParams().set('pageNumber', pageNumber.toString())
                                    .set('pageSize', pageSize.toString());
-    this.http.get<Recipe[]>(`${environment.apiEndpoint}${this.endpoint}`, {params: params}).subscribe(data => this.recipes = data);
+    this.http.get<Recipe[]>(`${environment.apiEndpoint}${this.endpoint}`, {params: params}).subscribe(data => {
+      this.recipes = data;
+      this.spinner.hide();
+    });
   }
 
   onScroll() {

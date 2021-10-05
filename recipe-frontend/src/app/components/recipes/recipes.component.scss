@@ -1,7 +1,8 @@
 .recipes {
     display: flex;
-    margin-top: 2rem;
-    margin-right: 10rem;
-    margin-bottom: 2rem;
-    margin-left: 10rem;
+    justify-content: center;
+}
+
+.scrolling-recipes {
+    min-width: 50rem;
 }

@@ -15,10 +15,13 @@ import { FilterComponent } from './components/filter/filter.component';
 import { MatCardModule } from '@angular/material/card'; 
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { AboutComponent } from './components/about/about.component';
+import { MatIconModule } from "@angular/material/icon";
 
 const MaterialComponents = [
   MatToolbarModule,
-  MatCardModule
+  MatCardModule,
+  MatIconModule
 ]
 
 @NgModule({
@@ -28,7 +31,8 @@ const MaterialComponents = [
     RecipesComponent,
     RecipeDetailComponent,
     RecipeCardComponent,
-    FilterComponent
+    FilterComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,

@@ -24,7 +24,7 @@ namespace WebAPI.Controllers
         [HttpGet]
         public ActionResult<Recipe[]> GetRecipes(int pageNumber = 1, int pageSize = 20)
         {
-            var result = _context.Recipes.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToArray();
+            var result = _context.Recipes.OrderBy(recipe => recipe.Id).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToArray();
             return new ActionResult<Recipe[]>(result);
         }
 
