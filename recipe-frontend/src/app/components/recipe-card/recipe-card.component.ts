@@ -17,8 +17,8 @@ export class RecipeCardComponent implements OnInit {
       this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/clock.svg")
     );
     this.matIconRegistry.addSvgIcon(
-      "meal",
-      this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/meal.svg")
+      "meal-kcal",
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/meal-kcal.svg")
     );
     this.matIconRegistry.addSvgIcon(
       "serving",

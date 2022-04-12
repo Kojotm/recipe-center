@@ -12,16 +12,18 @@ import { FormsModule } from '@angular/forms';
 import { RecipeDetailComponent } from './components/recipe-detail/recipe-detail.component';
 import { RecipeCardComponent } from './components/recipe-card/recipe-card.component';
 import { FilterComponent } from './components/filter/filter.component';
-import { MatCardModule } from '@angular/material/card'; 
+import { MatCardModule } from '@angular/material/card';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { AboutComponent } from './components/about/about.component';
 import { MatIconModule } from "@angular/material/icon";
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 const MaterialComponents = [
   MatToolbarModule,
   MatCardModule,
-  MatIconModule
+  MatIconModule,
+  MatFormFieldModule
 ]
 
 @NgModule({
@@ -42,7 +44,7 @@ const MaterialComponents = [
     FormsModule,
     InfiniteScrollModule,
     NgxSpinnerModule,
-    MaterialComponents
+    MaterialComponents,
   ],
   providers: [RecipeService],
   bootstrap: [AppComponent]

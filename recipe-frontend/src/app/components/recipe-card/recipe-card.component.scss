@@ -2,3 +2,19 @@
     margin: 0.5rem;
     min-height: 10rem;
 }
+
+.icons {
+    display: grid;
+    justify-content: end;
+}
+
+.icon-span {
+    display: inline-flex;
+    align-items: flex-end;
+    margin-bottom: 0.3rem;
+}
+
+.icon {
+    margin-right: 0.4rem;
+    color: white;
+}

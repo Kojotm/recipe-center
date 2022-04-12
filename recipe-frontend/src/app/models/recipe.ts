@@ -1,6 +1,7 @@
 import { NutritionInfo } from "./nutritionInfo";
 
 export interface Recipe {
+    id: number;
     name?: string | undefined;
     description?: string[] | undefined;
     ingredients?: string[] | undefined;

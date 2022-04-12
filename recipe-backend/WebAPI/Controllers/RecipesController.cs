@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Models;
 using Persistence;
+using Services;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {
@@ -14,9 +13,10 @@ namespace WebAPI.Controllers
     public class RecipesController : ControllerBase
     {
         private readonly RecipeContext _context;
-
-        public RecipesController(RecipeContext context)
+        private readonly RecipeService recipeService;
+        public RecipesController(RecipeContext context, RecipeService service)
         {
+            recipeService = service;
             _context = context;
         }
 
@@ -71,6 +71,14 @@ namespace WebAPI.Controllers
             }
 
             return NoContent();
+        }
+
+
+        [HttpPut("filter")]
+        public ActionResult<Recipe[]> Filter(RecipeFilter recipeFilter ,int pageNumber = 1, int pageSize = 20)
+        {
+            var result = recipeService.FilterRecipes(recipeFilter).OrderBy(recipe => recipe.Id).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToArray();
+            return new ActionResult<Recipe[]>(result);
         }
 
         // POST: api/Recipes

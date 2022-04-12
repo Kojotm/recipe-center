@@ -1,11 +1,26 @@
-<mat-card class="card">
+<mat-card class="card" [routerLink]="['/recipes/id', recipe.id]">
   <mat-card-header>
     <mat-card-title>{{recipe.name}}</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <mat-icon svgIcon="meal"></mat-icon>
-    <mat-icon svgIcon="clock"></mat-icon>
-    <mat-icon svgIcon="serving"></mat-icon>
+    <div class="icons">
+      <span class="icon-span">
+        <mat-icon svgIcon="meal-kcal" class="icon"></mat-icon>
+        <span *ngIf="recipe.calories !== null">
+          {{recipe.calories}} kcal
+        </span>
+        <span *ngIf="recipe.calories === null">
+          unknown
+        </span>
+      </span>
+      <span class="icon-span">
+        <mat-icon svgIcon="clock" class="icon"></mat-icon>
+        {{recipe.durationInMinutes}} min
+      </span>
+      <span class="icon-span">
+        <mat-icon svgIcon="serving" class="icon"></mat-icon>
+        {{recipe.servings}} serving(s)
+      </span>
+    </div>
   </mat-card-content>
 </mat-card>
-  
