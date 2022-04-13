@@ -19,13 +19,13 @@ export class RecipesComponent implements OnInit {
   private readonly endpoint = 'api/recipes/';
 
 
-  constructor(private http: HttpClient, private spinner: NgxSpinnerService, public recipeService: RecipeService) { }
+  constructor(private spinner: NgxSpinnerService, public recipeService: RecipeService) { }
 
   ngOnInit(): void {
-    this.initLoad(1, 20);
+    this.initLoad();
   }
 
-  initLoad(pageNumber: number, pageSize: number){
+  initLoad(){
     this.spinner.show();
     this.count = 1;
     this.recipeService.applyFilter().subscribe(response => {

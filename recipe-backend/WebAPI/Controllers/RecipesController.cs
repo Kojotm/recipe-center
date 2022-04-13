@@ -12,34 +12,19 @@ namespace WebAPI.Controllers
     [ApiController]
     public class RecipesController : ControllerBase
     {
-        private readonly RecipeContext _context;
         private readonly RecipeService recipeService;
-        public RecipesController(RecipeContext context, RecipeService service)
+
+        public RecipesController(RecipeService service)
         {
             recipeService = service;
-            _context = context;
-        }
-
-        // GET: api/Recipes
-        [HttpGet]
-        public ActionResult<Recipe[]> GetRecipes(int pageNumber = 1, int pageSize = 20)
-        {
-            var result = _context.Recipes.OrderBy(recipe => recipe.Id).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToArray();
-            return new ActionResult<Recipe[]>(result);
         }
 
         // GET: api/Recipes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Recipe>> GetRecipe(int id)
+        public async Task<ActionResult<DRecipe>> GetRecipe(int id)
         {
-            var recipe = await _context.Recipes.Include(r => r.NutritionInfo).FirstOrDefaultAsync(r => r.Id == id);
-
-            if (recipe == null)
-            {
-                return NotFound();
-            }
-
-            return recipe;
+            DRecipe result = await recipeService.GetRecipeById(id);
+            return new ActionResult<DRecipe>(result); 
         }
 
         // PUT: api/Recipes/5
@@ -52,33 +37,33 @@ namespace WebAPI.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(recipe).State = EntityState.Modified;
+            //_context.Entry(recipe).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!RecipeExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            //try
+            //{
+            //    await _context.SaveChangesAsync();
+            //}
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    if (!RecipeExists(id))
+            //    {
+            //        return NotFound();
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
 
             return NoContent();
         }
 
 
         [HttpPut("filter")]
-        public ActionResult<Recipe[]> Filter(RecipeFilter recipeFilter ,int pageNumber = 1, int pageSize = 20)
+        public ActionResult<DRecipe[]> Filter(RecipeFilter recipeFilter ,int pageNumber = 1, int pageSize = 20)
         {
-            var result = recipeService.FilterRecipes(recipeFilter).OrderBy(recipe => recipe.Id).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToArray();
-            return new ActionResult<Recipe[]>(result);
+            var result = recipeService.FilterRecipes(recipeFilter, pageNumber, pageSize);
+            return new ActionResult<DRecipe[]>(result);
         }
 
         // POST: api/Recipes
@@ -86,8 +71,8 @@ namespace WebAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Recipe>> PostRecipe(Recipe recipe)
         {
-            _context.Recipes.Add(recipe);
-            await _context.SaveChangesAsync();
+            //_context.Recipes.Add(recipe);
+            //await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetRecipe", new { id = recipe.Id }, recipe);
         }
@@ -96,21 +81,16 @@ namespace WebAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRecipe(int id)
         {
-            var recipe = await _context.Recipes.FindAsync(id);
-            if (recipe == null)
-            {
-                return NotFound();
-            }
+            //var recipe = await _context.Recipes.FindAsync(id);
+            //if (recipe == null)
+            //{
+            //    return NotFound();
+            //}
 
-            _context.Recipes.Remove(recipe);
-            await _context.SaveChangesAsync();
+            //_context.Recipes.Remove(recipe);
+            //await _context.SaveChangesAsync();
 
             return NoContent();
-        }
-
-        private bool RecipeExists(int id)
-        {
-            return _context.Recipes.Any(e => e.Id == id);
         }
     }
 }

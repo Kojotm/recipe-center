@@ -1,6 +1,32 @@
-<p>
-  <mat-form-field appearance="legacy">
-    <mat-label>Legacy form field</mat-label>
-    <input matInput placeholder="Search ...">
-  </mat-form-field>
-</p>
+<mat-form-field class="filter" appearance="fill">
+  <mat-label>Search</mat-label>
+  <input matInput [(ngModel)]="filter.searchPhrase" (keyup.enter)="onEnterPress()">
+  <mat-hint>Search for a word or a phrase</mat-hint>
+</mat-form-field>
+
+<mat-form-field class="filter2" appearance="fill">
+  <mat-label>Minimun Servings</mat-label>
+  <input matInput [(ngModel)]="filter.minServings" (keyup.enter)="onEnterPress()">
+  <mat-hint>Filter for minimum servings</mat-hint>
+</mat-form-field>
+
+<mat-form-field class="filter3" appearance="fill">
+  <mat-label>Maximum time in minutes</mat-label>
+  <input matInput [(ngModel)]="filter.maxDurationInMinutes" (keyup.enter)="onEnterPress()">
+  <mat-hint>Filter for max time in minutes</mat-hint>
+</mat-form-field>
+
+<mat-form-field class="filter4" appearance="fill">
+  <mat-label>Maximum Calories</mat-label>
+  <input matInput [(ngModel)]="filter.maxCalories" (keyup.enter)="onEnterPress()">
+  <mat-hint>Filter for max calories</mat-hint>
+</mat-form-field>
+
+<mat-form-field class="filter5" appearance="fill">
+  <mat-label>Difficulty</mat-label>
+  <mat-select (selectionChange)="changeDifficulty($event.value)">
+    <mat-option *ngFor="let difficulty of difficulties" [value]="difficulty">
+      {{difficulty}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

@@ -18,12 +18,19 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { AboutComponent } from './components/about/about.component';
 import { MatIconModule } from "@angular/material/icon";
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 const MaterialComponents = [
   MatToolbarModule,
   MatCardModule,
   MatIconModule,
-  MatFormFieldModule
+  MatFormFieldModule,
+  MatButtonModule,
+  MatInputModule,
+  MatSelectModule
 ]
 
 @NgModule({
@@ -46,7 +53,21 @@ const MaterialComponents = [
     NgxSpinnerModule,
     MaterialComponents,
   ],
-  providers: [RecipeService],
+  providers: [RecipeService,
+              SocialAuthService,
+              {
+                provide: 'SocialAuthServiceConfig',
+                useValue: {
+                  autoLogin: true, //keeps the user signed in
+                  providers: [
+                    {
+                      id: GoogleLoginProvider.PROVIDER_ID,
+                      provider: new GoogleLoginProvider('944835087300-qvrk3m31re7oc96ujm4qdguuk05mcqvh.apps.googleusercontent.com')
+                    }
+                  ]
+                }
+              }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

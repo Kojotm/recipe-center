@@ -22,7 +22,9 @@ namespace WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<RecipeContext>(opt => opt.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=LocalRecipeDB"));
+
             services.AddScoped<RecipeService>();
+
             services.AddControllers();
             services.AddCors(options =>
             {

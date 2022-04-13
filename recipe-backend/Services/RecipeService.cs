@@ -1,12 +1,18 @@
-﻿using Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Models;
 using Persistence;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Services
 {
     public class RecipeService
     {
+        private const double lowerThreshold = 33.333;
+        private const double upperThreshold = 83.333;
+
         private readonly RecipeContext context;
 
         public RecipeService(RecipeContext context)
@@ -28,9 +34,70 @@ namespace Services
             return result;
         }
 
-        public Recipe[] FilterRecipes(RecipeFilter filter)
+        public async Task<DRecipe> GetRecipeById(int id)
         {
-            return context.FilterRecipes(filter).ToArray();
+            Recipe recipe = await context.Recipes.Include(r => r.NutritionInfo).FirstOrDefaultAsync(r => r.Id == id);
+
+            if(recipe == null)
+            {
+                throw new NullReferenceException();
+            }
+
+            return MapToDtoRecipe(recipe);
+        }
+
+        public DRecipe[] FilterRecipes(RecipeFilter filter, int pageNumber, int pageSize)
+        {
+            Recipe[] filteredRecipes = context.FilterRecipes(filter).ToArray();
+
+            List<DRecipe> DtoRecipes = new();
+
+            foreach(Recipe recipe in filteredRecipes)
+            {
+                DRecipe dRecipe = MapToDtoRecipe(recipe);
+
+                if (filter.Difficulty == Difficulty.None || filter.Difficulty == dRecipe.Difficulty)
+                {
+                    DtoRecipes.Add(dRecipe);
+                }
+            }
+
+            return DtoRecipes.OrderBy(recipe => recipe.Id).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToArray();
+        }
+
+        private DRecipe MapToDtoRecipe(Recipe recipe)
+        {
+            return new DRecipe
+            {
+                Id = recipe.Id,
+                Name = recipe.Name,
+                Description = recipe.Description,
+                Ingredients = recipe.Ingredients,
+                Categories = recipe.Categories,
+                Calories = recipe.Calories,
+                Servings = recipe.Servings,
+                DurationInMinutes = recipe.DurationInMinutes,
+                NutritionInfo = recipe.NutritionInfo,
+                Difficulty = CalculateDifficulty(recipe)
+            };
+        }
+
+        private Difficulty CalculateDifficulty(Recipe recipe)
+        {
+            double ratio = ((recipe.DurationInMinutes ?? 0) * 2 + recipe.Ingredients.Length) / 3;
+
+            if(ratio < lowerThreshold)
+            {
+                return Difficulty.Easy;
+            }
+            else if (ratio > upperThreshold)
+            {
+                return Difficulty.Hard;
+            }
+            else
+            {
+                return Difficulty.Medium;
+            }
         }
     }
 }

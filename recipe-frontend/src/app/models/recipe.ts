@@ -1,3 +1,4 @@
+import { Difficulty } from "./difficulty";
 import { NutritionInfo } from "./nutritionInfo";
 
 export interface Recipe {
@@ -10,4 +11,5 @@ export interface Recipe {
     servings?: number | undefined;
     durationInMinutes?: number | undefined;
     nutritionInfo?: NutritionInfo;
+    difficulty: Difficulty;
 }
