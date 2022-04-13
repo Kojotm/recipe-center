@@ -20,19 +20,15 @@ export class FilterComponent implements OnInit {
   constructor(private recipeService: RecipeService) { }
 
   ngOnInit(): void {
-    console.log(this.difficulties);
+
   }
 
   changeDifficulty(value: any) {
-    console.log(value);
-    console.log(Difficulty[value]);
-
     this.selectedDifficulty = Number(Difficulty[value]);
+    this.filter.difficulty = this.selectedDifficulty;
   }
 
-  onEnterPress() {
-    console.log(this.selectedDifficulty);
-    this.filter.difficulty = this.selectedDifficulty;
+  applyFilter() {
     this.recipeService.recipeFilter = this.filter;
     this.filterChanged.emit();
   }

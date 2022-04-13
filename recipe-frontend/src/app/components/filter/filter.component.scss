@@ -1,39 +1,24 @@
 .filter {
-    margin-top: 4.5rem;
-    margin-right: 0.4rem;
     position: fixed;
     top: 0;
     left: 10%;
-}
 
-.filter2 {
-  margin-top: 9.5rem;
-  margin-right: 0.4rem;
-  position: fixed;
-  top: 0;
-  left: 10%;
-}
-
-.filter3 {
-  margin-top: 14.5rem;
-  margin-right: 0.4rem;
-  position: fixed;
-  top: 0;
-  left: 10%;
-}
-
-.filter4 {
-  margin-top: 19.5rem;
-  margin-right: 0.4rem;
-  position: fixed;
-  top: 0;
-  left: 10%;
-}
-
-.filter5 {
-  margin-top: 24.5rem;
-  margin-right: 0.4rem;
-  position: fixed;
-  top: 0;
-  left: 10%;
+    &.search{
+      margin-top: 4.5rem;
+    }
+    &.minServ{
+      margin-top: 9.5rem;
+    }
+    &.maxTime{
+      margin-top: 14.5rem;
+    }
+    &.maxCal{
+      margin-top: 19.5rem;
+    }
+    &.diff{
+      margin-top: 24.5rem;
+    }
+    &.searchButton{
+      margin-top: 29.5rem;
+    }
 }

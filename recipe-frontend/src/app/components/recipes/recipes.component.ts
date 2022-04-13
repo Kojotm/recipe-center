@@ -1,10 +1,7 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Recipe } from 'src/app/models/recipe';
-import { RecipeFilter } from 'src/app/models/recipeFilter';
 import { RecipeService } from 'src/app/services/recipe.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-recipes',
@@ -16,8 +13,6 @@ export class RecipesComponent implements OnInit {
   recipes!: Recipe[];
   count!: number;
   notScrolling = true;
-  private readonly endpoint = 'api/recipes/';
-
 
   constructor(private spinner: NgxSpinnerService, public recipeService: RecipeService) { }
 
@@ -39,7 +34,7 @@ export class RecipesComponent implements OnInit {
       this.spinner.show();
       this.notScrolling = false;
       this.count++;
-      this.recipeService.applyFilter().subscribe(response => {
+      this.recipeService.applyFilter(this.count).subscribe(response => {
         this.recipes = this.recipes.concat(response);
         this.notScrolling = true;
         this.spinner.hide();
