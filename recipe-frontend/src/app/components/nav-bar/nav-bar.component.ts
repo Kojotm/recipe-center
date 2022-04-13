@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
 
@@ -7,13 +7,10 @@ import { GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.scss']
 })
-export class NavBarComponent implements OnInit {
+export class NavBarComponent {
 
   constructor(private router: Router,
               private socialAuthService: SocialAuthService) { }
-
-  ngOnInit(): void {
-  }
 
   loginWithGoogle() {
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID)

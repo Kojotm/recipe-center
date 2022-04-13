@@ -1,0 +1,6 @@
+<div class="scrolling-recipes" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()" [scrollWindow]="true">
+  <app-recipe-card [recipe]="recipe"
+                   *ngFor="let recipe of recipes"
+                   routerLink="/search-recipes/id/{{recipe.id}}">
+  </app-recipe-card>
+</div>

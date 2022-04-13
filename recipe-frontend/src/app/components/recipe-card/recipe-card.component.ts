@@ -1,15 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Recipe } from 'src/app/models/recipe';
+import { Component, Input } from '@angular/core';
 import { MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from "@angular/platform-browser";
 import { Difficulty } from 'src/app/models/difficulty';
+import { Recipe } from 'src/app/models/recipe';
 
 @Component({
   selector: 'app-recipe-card',
   templateUrl: './recipe-card.component.html',
   styleUrls: ['./recipe-card.component.scss']
 })
-export class RecipeCardComponent implements OnInit {
+export class RecipeCardComponent {
 
   @Input() recipe = {} as Recipe;
 
@@ -30,10 +30,6 @@ export class RecipeCardComponent implements OnInit {
       "speedometer",
       this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/speedometer.svg")
     );
-  }
-
-  ngOnInit(): void {
-
   }
 
   getDifficulty() {

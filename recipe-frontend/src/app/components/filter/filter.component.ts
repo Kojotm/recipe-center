@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { Difficulty } from 'src/app/models/difficulty';
 import { RecipeFilter } from 'src/app/models/recipeFilter';
 import { RecipeService } from 'src/app/services/recipe.service';
@@ -8,7 +8,7 @@ import { RecipeService } from 'src/app/services/recipe.service';
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.scss']
 })
-export class FilterComponent implements OnInit {
+export class FilterComponent {
   pageNum = 1;
   filter =  new RecipeFilter();
   selectedDifficulty = 3;
@@ -18,10 +18,6 @@ export class FilterComponent implements OnInit {
   @Output() filterChanged = new EventEmitter<any>();
 
   constructor(private recipeService: RecipeService) { }
-
-  ngOnInit(): void {
-
-  }
 
   changeDifficulty(value: any) {
     this.selectedDifficulty = Number(Difficulty[value]);

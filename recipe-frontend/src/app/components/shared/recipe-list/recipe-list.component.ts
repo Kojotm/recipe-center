@@ -1,33 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Recipe } from 'src/app/models/recipe';
 import { RecipeService } from 'src/app/services/recipe.service';
 
 @Component({
-  selector: 'app-recipes',
-  templateUrl: './recipes.component.html',
-  styleUrls: ['./recipes.component.scss']
+  selector: 'app-recipe-list',
+  templateUrl: './recipe-list.component.html',
+  styleUrls: ['./recipe-list.component.scss']
 })
-export class RecipesComponent implements OnInit {
+export class RecipeListComponent {
   selectedRecipe?: Recipe;
-  recipes!: Recipe[];
-  count!: number;
+
+  @Input() recipes!: Recipe[];
+
+  count = 1;
   notScrolling = true;
 
   constructor(private spinner: NgxSpinnerService, public recipeService: RecipeService) { }
-
-  ngOnInit(): void {
-    this.initLoad();
-  }
-
-  initLoad(){
-    this.spinner.show();
-    this.count = 1;
-    this.recipeService.applyFilter().subscribe(response => {
-        this.recipes = response;
-      this.spinner.hide();
-    });
-  }
 
   onScroll() {
     if(this.notScrolling){
