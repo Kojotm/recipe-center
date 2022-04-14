@@ -1,14 +1,14 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Difficulty } from 'src/app/models/difficulty';
 import { RecipeFilter } from 'src/app/models/recipeFilter';
 import { RecipeService } from 'src/app/services/recipe.service';
 
 @Component({
-  selector: 'app-filter',
-  templateUrl: './filter.component.html',
-  styleUrls: ['./filter.component.scss']
+  selector: 'app-search-filter',
+  templateUrl: './search-filter.component.html',
+  styleUrls: ['./search-filter.component.scss']
 })
-export class FilterComponent {
+export class SearchFilterComponent {
   pageNum = 1;
   filter =  new RecipeFilter();
   selectedDifficulty = 3;

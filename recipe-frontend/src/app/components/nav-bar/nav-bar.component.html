@@ -1,5 +1,8 @@
 <mat-toolbar class="navbar">
-    <h1 routerLink="/">Recipe Center</h1>
+    <h1 (click)="setFilterToBasic()" routerLink="/">Recipe Center</h1>
+    <button class="google-button" mat-button color="primary" routerLink="pantry" mat-raised-button class="google-login-btn">
+      Pantry
+    </button>
     <button class="google-button" mat-button color="primary" (click)="loginWithGoogle()" mat-raised-button class="google-login-btn">
       Google
     </button>

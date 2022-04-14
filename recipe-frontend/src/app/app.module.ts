@@ -16,15 +16,16 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AboutComponent } from './components/about/about.component';
-import { FilterComponent } from './components/filter/filter.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { PantryComponent } from './components/pantry/pantry.component';
 import { RecipeCardComponent } from './components/recipe-card/recipe-card.component';
 import { RecipeDetailComponent } from './components/recipe-detail/recipe-detail.component';
+import { SearchFilterComponent } from './components/search-filter/search-filter.component';
 import { SearchRecipesComponent } from './components/search-recipes/search-recipes.component';
 import { LoadingIndicatorComponent } from './components/shared/loading-indicator/loading-indicator.component';
 import { RecipeListComponent } from './components/shared/recipe-list/recipe-list.component';
 import { RecipeService } from './services/recipe.service';
-import { PantryComponent } from './components/pantry/pantry.component';
+import { PantryFilterComponent } from './components/pantry-filter/pantry-filter.component';
 
 const MaterialComponents = [
   MatToolbarModule,
@@ -43,11 +44,12 @@ const MaterialComponents = [
     RecipeListComponent,
     RecipeDetailComponent,
     RecipeCardComponent,
-    FilterComponent,
+    SearchFilterComponent,
     AboutComponent,
     SearchRecipesComponent,
     LoadingIndicatorComponent,
-    PantryComponent
+    PantryComponent,
+    PantryFilterComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,5 @@
+<mat-form-field class="filter search" appearance="fill">
+  <mat-label>Add ingredient</mat-label>
+  <input matInput [(ngModel)]="ingredientToAdd" (keyup.enter)="addIngredient()">
+  <mat-hint>Type in one of your ingredients</mat-hint>
+</mat-form-field>

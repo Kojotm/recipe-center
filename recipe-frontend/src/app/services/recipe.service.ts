@@ -1,8 +1,8 @@
-import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable } from 'rxjs';
 import { environment } from "src/environments/environment";
 import { Recipe } from "../models/recipe";
-import { BehaviorSubject, Observable } from 'rxjs';
 import { RecipeFilter } from "../models/recipeFilter";
 
 @Injectable({
@@ -16,6 +16,10 @@ export class RecipeService {
     private readonly endpoint = 'api/recipes/';
 
     constructor(private http: HttpClient) { }
+
+    setRecipeFilterToBasic() {
+      this.recipeFilter = new RecipeFilter();
+    }
 
     getRecipes(pageNumber: number = 1, pageSize: number = 20) {
         const params = new HttpParams().set('pageNumber', pageNumber.toString())
