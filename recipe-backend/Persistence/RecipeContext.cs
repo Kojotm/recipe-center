@@ -38,7 +38,9 @@ namespace Persistence
 
             if (!string.IsNullOrEmpty(filter.SearchPhrase))
             {
-                query = query.Where(recipe => recipe.Name.ToLower().Contains(filter.SearchPhrase.ToLower()));
+                query = query.Where(recipe =>
+                                    recipe.Name.ToLower().Contains(filter.SearchPhrase.ToLower())
+                );
             }
 
             if (filter.MaxCalories >= 0)

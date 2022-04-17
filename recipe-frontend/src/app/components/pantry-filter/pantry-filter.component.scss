@@ -1,9 +1,26 @@
 .filter {
-  position: fixed;
-  top: 0;
-  left: 10%;
+  position: absolute;
+  height: auto;
+  top: 8px;
+  left: 16px;
 
   &.search{
-    margin-top: 10rem;
+    margin-top: 4.5rem;
   }
+
+  &.chips{
+    margin-top: 9.5rem;
+    display: block;
+    width: 15%;
+  }
+
+  &.searchButton {
+    margin-top: 9.5rem;
+  }
+}
+
+.search-button {
+  position: absolute;
+  left: 13rem;
+  top: -4.5rem;
 }

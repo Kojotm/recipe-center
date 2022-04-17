@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from '@angular/material/input';
@@ -17,6 +18,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AboutComponent } from './components/about/about.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { PantryFilterComponent } from './components/pantry-filter/pantry-filter.component';
 import { PantryComponent } from './components/pantry/pantry.component';
 import { RecipeCardComponent } from './components/recipe-card/recipe-card.component';
 import { RecipeDetailComponent } from './components/recipe-detail/recipe-detail.component';
@@ -25,7 +27,6 @@ import { SearchRecipesComponent } from './components/search-recipes/search-recip
 import { LoadingIndicatorComponent } from './components/shared/loading-indicator/loading-indicator.component';
 import { RecipeListComponent } from './components/shared/recipe-list/recipe-list.component';
 import { RecipeService } from './services/recipe.service';
-import { PantryFilterComponent } from './components/pantry-filter/pantry-filter.component';
 
 const MaterialComponents = [
   MatToolbarModule,
@@ -34,7 +35,8 @@ const MaterialComponents = [
   MatFormFieldModule,
   MatButtonModule,
   MatInputModule,
-  MatSelectModule
+  MatSelectModule,
+  MatChipsModule
 ]
 
 @NgModule({

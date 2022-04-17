@@ -1,5 +1,20 @@
-<mat-form-field class="filter search" appearance="fill">
+
+<div>
+  <mat-form-field class="filter search" appearance="fill">
   <mat-label>Add ingredient</mat-label>
   <input matInput [(ngModel)]="ingredientToAdd" (keyup.enter)="addIngredient()">
   <mat-hint>Type in one of your ingredients</mat-hint>
-</mat-form-field>
+  </mat-form-field>
+
+  <mat-chip-list class="filter chips">
+    <mat-chip *ngFor="let ingr of ingredientList; let i = index" color="primary" (removed)="removeIngredient(i)">
+      {{ingr}}
+      <button matChipRemove>
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-chip>
+  </mat-chip-list>
+</div>
+<div class="search-button">
+  <button mat-flat-button class="filter searchButton" color="primary" (click)="applyFilter()">Search</button>
+</div>

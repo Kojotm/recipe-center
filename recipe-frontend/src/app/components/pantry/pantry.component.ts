@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { RecipeService } from 'src/app/services/recipe.service';
+import { Recipe } from 'src/app/models/recipe';
+import { PantryService } from 'src/app/services/pantry.service';
 
 @Component({
   selector: 'app-pantry',
@@ -8,7 +9,16 @@ import { RecipeService } from 'src/app/services/recipe.service';
   styleUrls: ['./pantry.component.scss']
 })
 export class PantryComponent {
+  recipes: Recipe[] = [];
 
-  constructor(private spinner: NgxSpinnerService, private recipeService: RecipeService) { }
+  constructor(private spinner: NgxSpinnerService, private pantryService: PantryService) { }
+
+  load(){
+    this.spinner.show();
+    this.pantryService.applyFilter().subscribe(response => {
+      this.recipes = response;
+      this.spinner.hide();
+    });
+  }
 
 }

@@ -1,5 +1,5 @@
 <div class="pantry">
-  <app-pantry-filter></app-pantry-filter>
-  <app-recipe-list></app-recipe-list>
+  <app-pantry-filter (filterChanged)="load()"></app-pantry-filter>
+  <app-recipe-list [recipes]="recipes"></app-recipe-list>
   <app-loading-indicator></app-loading-indicator>
 </div>

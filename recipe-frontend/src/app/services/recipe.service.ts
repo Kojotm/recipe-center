@@ -11,22 +11,12 @@ import { RecipeFilter } from "../models/recipeFilter";
 export class RecipeService {
     public recipes: Recipe[] = [];
     public recipeFilter = new RecipeFilter();
-    public pageNumber: number = 1;
-    public count: number = 0;
     private readonly endpoint = 'api/recipes/';
 
     constructor(private http: HttpClient) { }
 
     setRecipeFilterToBasic() {
       this.recipeFilter = new RecipeFilter();
-    }
-
-    getRecipes(pageNumber: number = 1, pageSize: number = 20) {
-        const params = new HttpParams().set('pageNumber', pageNumber.toString())
-                                       .set('pageSize', pageSize.toString());
-        this.http.get<Recipe[]>(`${environment.apiEndpoint}${this.endpoint}`, {params: params}).subscribe(data => {
-            return data;
-        });
     }
 
     getRecipeById(id: number) : Observable<Recipe | undefined> {

@@ -9,7 +9,6 @@ import { RecipeService } from 'src/app/services/recipe.service';
   styleUrls: ['./search-filter.component.scss']
 })
 export class SearchFilterComponent {
-  pageNum = 1;
   filter =  new RecipeFilter();
   selectedDifficulty = 3;
 
