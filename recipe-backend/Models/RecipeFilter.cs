@@ -6,6 +6,6 @@
         public int? MaxCalories { get; set; } = null;
         public int? MaxDurationInMinutes { get; set; } = null;
         public int? MinServings { get; set; } = null;
-        public Difficulty Difficulty { get; set; }
+        public Difficulty Difficulty { get; set; } = Difficulty.None;
     }
 }

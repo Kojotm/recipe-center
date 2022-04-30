@@ -46,19 +46,106 @@ namespace Services
             return MapToDtoRecipe(recipe);
         }
 
+        public DRecipe[] PantryFilter(PantryFilter filter, int pageNumber, int pageSize)
+        {
+            Recipe[] recipes = context.Recipes.ToArray();
+
+            List<DRecipe> recipesToReturn = new();
+
+            foreach(var recipe in recipes)
+            {
+                int ingredientCounter = 0;
+
+                foreach (var ingredient in recipe.Ingredients)
+                {
+                    bool ingredientFound = false;
+
+                    foreach(var filterIngr in filter.Ingredients)
+                    {
+                        if (ingredient.ToLower().Contains(filterIngr.ToLower()))
+                        {
+                            ingredientCounter++;
+                            ingredientFound = true;
+                            break;
+                        }
+                    }
+
+                    if(ingredientFound)
+                    {
+                        continue;
+                    }
+                }
+
+                if(recipe.Ingredients.Length != 0 &&  recipe.Ingredients.Length - filter.maxAllowedMissingIngredients <= ingredientCounter)
+                {
+                    recipesToReturn.Add(MapToDtoRecipe(recipe));
+                }
+            }
+
+            return recipesToReturn.OrderBy(recipe => recipe.Id).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToArray();
+        }
+
         public DRecipe[] FilterRecipes(RecipeFilter filter, int pageNumber, int pageSize)
         {
             Recipe[] filteredRecipes = context.FilterRecipes(filter).ToArray();
 
-            List<DRecipe> DtoRecipes = new();
+            HashSet<DRecipe> DtoRecipes = new();
 
-            foreach(Recipe recipe in filteredRecipes)
+            if (!string.IsNullOrEmpty(filter.SearchPhrase))
             {
-                DRecipe dRecipe = MapToDtoRecipe(recipe);
-
-                if (filter.Difficulty == Difficulty.None || filter.Difficulty == dRecipe.Difficulty)
+                foreach (var recipe in filteredRecipes)
                 {
-                    DtoRecipes.Add(dRecipe);
+                    if (recipe.Name.ToLower().Contains(filter.SearchPhrase.ToLower()))
+                    {
+                        DtoRecipes.Add(MapToDtoRecipe(recipe));
+                        continue;
+                    }
+
+                    bool foundIngredient = false;
+
+                    foreach (var ingredient in recipe.Ingredients)
+                    {
+                        if (ingredient.ToLower().Contains(filter.SearchPhrase.ToLower()))
+                        {
+                            DtoRecipes.Add(MapToDtoRecipe(recipe));
+                            foundIngredient = true;
+                            break;
+                        }
+                    }
+
+                    if (foundIngredient)
+                    {
+                        continue;
+                    }
+
+                    foreach (var description in recipe.Description)
+                    {
+                        if (description.ToLower().Contains(filter.SearchPhrase.ToLower()))
+                        {
+                            DtoRecipes.Add(MapToDtoRecipe(recipe));
+                            break;
+                        }
+                    }
+                }
+
+                foreach (DRecipe recipe in DtoRecipes)
+                {
+                    if (filter.Difficulty != Difficulty.None && filter.Difficulty != recipe.Difficulty)
+                    {
+                        DtoRecipes.Remove(recipe);
+                    }
+                }
+            }
+            else
+            {
+                foreach (Recipe recipe in filteredRecipes)
+                {
+                    DRecipe dRecipe = MapToDtoRecipe(recipe);
+
+                    if (filter.Difficulty == Difficulty.None || filter.Difficulty == dRecipe.Difficulty)
+                    {
+                        DtoRecipes.Add(dRecipe);
+                    }
                 }
             }
 

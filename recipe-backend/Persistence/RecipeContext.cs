@@ -36,13 +36,6 @@ namespace Persistence
         {
             IQueryable<Recipe> query = Recipes.Include(recipe => recipe.NutritionInfo);
 
-            if (!string.IsNullOrEmpty(filter.SearchPhrase))
-            {
-                query = query.Where(recipe =>
-                                    recipe.Name.ToLower().Contains(filter.SearchPhrase.ToLower())
-                );
-            }
-
             if (filter.MaxCalories >= 0)
             {
                 query = query.Where(recipe => recipe.Calories <= filter.MaxCalories);

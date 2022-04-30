@@ -7,7 +7,7 @@
   </mat-form-field>
 
   <mat-chip-list class="filter chips">
-    <mat-chip *ngFor="let ingr of ingredientList; let i = index" color="primary" (removed)="removeIngredient(i)">
+    <mat-chip *ngFor="let ingr of filter.ingredients; let i = index" color="primary" (removed)="removeIngredient(i)">
       {{ingr}}
       <button matChipRemove>
         <mat-icon>cancel</mat-icon>

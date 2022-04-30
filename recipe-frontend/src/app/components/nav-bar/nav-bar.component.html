@@ -1,9 +1,15 @@
 <mat-toolbar class="navbar">
     <h1 (click)="setFilterToBasic()" routerLink="/">Recipe Center</h1>
+    <button class="google-button" mat-button color="primary" routerLink="search-recipes" mat-raised-button class="google-login-btn">
+      Recipes
+    </button>
     <button class="google-button" mat-button color="primary" routerLink="pantry" mat-raised-button class="google-login-btn">
       Pantry
     </button>
-    <button class="google-button" mat-button color="primary" (click)="loginWithGoogle()" mat-raised-button class="google-login-btn">
+    <button *ngIf="isLoggedIn()" class="google-button" mat-button color="primary" routerLink="profile" mat-raised-button class="google-login-btn">
+      Profile
+    </button>
+    <button *ngIf="!isLoggedIn()" class="google-button" mat-button color="primary" (click)="authGuardService.loginWithGoogle()" mat-raised-button class="google-login-btn">
       Google
     </button>
 </mat-toolbar>

@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { AuthGuardService } from 'src/app/services/auth-guard.service';
 import { RecipeService } from 'src/app/services/recipe.service';
 
 @Component({
@@ -8,18 +8,30 @@ import { RecipeService } from 'src/app/services/recipe.service';
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.scss']
 })
-export class NavBarComponent {
+export class NavBarComponent implements OnInit, OnDestroy {
+  private loggedIn = false;
+  loginSub = new Subscription();
 
-  constructor(private router: Router,
-              private socialAuthService: SocialAuthService,
-              private recipeService: RecipeService) { }
+  constructor(private recipeService: RecipeService,
+              public authGuardService: AuthGuardService) { }
 
-  loginWithGoogle() {
-    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID)
-      .then(() => this.router.navigate(['']));
+  ngOnInit(): void {
+    this.loginSub = this.authGuardService.getLoggedIn().subscribe(bool => {
+      this.loggedIn = bool;
+    });
+  }
+
+  isLoggedIn() {
+    return this.loggedIn;
   }
 
   setFilterToBasic() {
     this.recipeService.setRecipeFilterToBasic();
+  }
+
+  ngOnDestroy(): void {
+   if (this.loginSub) {
+      this.loginSub.unsubscribe();
+   }
   }
 }

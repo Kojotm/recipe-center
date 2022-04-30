@@ -1,4 +1,4 @@
-<div class="pantry">
+<div [ngClass]="recipes.length < 5 ? 'pantry' : 'pantry-overflow'">
   <app-pantry-filter (filterChanged)="load()"></app-pantry-filter>
   <app-recipe-list [recipes]="recipes"></app-recipe-list>
   <app-loading-indicator></app-loading-indicator>

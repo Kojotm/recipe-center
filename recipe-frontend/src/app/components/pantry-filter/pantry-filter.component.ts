@@ -10,7 +10,6 @@ import { PantryService } from 'src/app/services/pantry.service';
 export class PantryFilterComponent {
   filter = new PantryFilter();
   ingredientToAdd = "";
-  ingredientList: string[] = [];
 
   @Output() filterChanged = new EventEmitter<any>();
 
@@ -18,13 +17,13 @@ export class PantryFilterComponent {
 
   addIngredient() {
     if(this.ingredientToAdd) {
-      this.ingredientList.push(this.ingredientToAdd);
+      this.filter.ingredients.push(this.ingredientToAdd);
       this.ingredientToAdd = "";
     }
   }
 
   removeIngredient(index: number) {
-    this.ingredientList.splice(index, 1);
+    this.filter.ingredients.splice(index, 1);
   }
 
   applyFilter() {
