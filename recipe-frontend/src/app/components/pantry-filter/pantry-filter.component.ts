@@ -10,6 +10,7 @@ import { PantryService } from 'src/app/services/pantry.service';
 export class PantryFilterComponent {
   filter = new PantryFilter();
   ingredientToAdd = "";
+  maxNumberOfMissingIngredients = 0;
 
   @Output() filterChanged = new EventEmitter<any>();
 
@@ -27,6 +28,8 @@ export class PantryFilterComponent {
   }
 
   applyFilter() {
+    this.filter.maxAllowedMissingIngredients = this.maxNumberOfMissingIngredients;
+
     this.pantryService.pantryFilter = this.filter;
     this.filterChanged.emit();
   }

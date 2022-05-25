@@ -10,7 +10,7 @@ import { RecipeService } from 'src/app/services/recipe.service';
 })
 export class SearchRecipesComponent implements OnInit {
   selectedRecipe?: Recipe;
-  recipes!: Recipe[];
+  recipes: Recipe[] = [];
   notScrolling = true;
 
   constructor(private spinner: NgxSpinnerService, public recipeService: RecipeService) { }

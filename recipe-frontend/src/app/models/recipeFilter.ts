@@ -6,4 +6,5 @@ export class RecipeFilter {
     maxDurationInMinutes? = null;
     minServings? = null;
     difficulty = Difficulty.None;
+    addedByUser = false;
 }

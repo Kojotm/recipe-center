@@ -1,0 +1,31 @@
+.background {
+  background-color: darkgray;
+  padding-top: 5.1rem;
+  height: 100%;
+}
+
+.recipes {
+  display: flex;
+  justify-content: center;
+  background-color: darkgray;
+}
+
+.background-overflow{
+  background-color: darkgray;
+  padding-top: 5.1rem;
+}
+
+.scrolling-recipes {
+  margin-left: 10rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+}
+
+button {
+  height: fit-content;
+  margin-left: 1.5rem;
+  margin-top: 0.5rem;
+}

@@ -28,6 +28,7 @@ namespace WebAPI.Controllers
         public ActionResult<DRecipe[]> Filter(PantryFilter pantryFilter, int pageNumber = 1, int pageSize = 20)
         {
             var result = recipeService.PantryFilter(pantryFilter, pageNumber, pageSize);
+
             return new ActionResult<DRecipe[]>(result);
         }
     }

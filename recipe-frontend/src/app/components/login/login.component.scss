@@ -1,0 +1,22 @@
+.background {
+  background-color: darkgray;
+  padding-top: 15rem;
+  padding-left: 1.5rem;
+  height: 100%;
+}
+
+.password {
+  margin-left: 2rem;
+}
+
+::ng-deep .success {
+  background-color:rgb(12, 218, 104);
+  white-space: pre-wrap;
+  color: white;
+}
+
+::ng-deep .fail {
+  background-color:rgb(185, 14, 14);
+  white-space: pre-wrap;
+  color: white;
+}

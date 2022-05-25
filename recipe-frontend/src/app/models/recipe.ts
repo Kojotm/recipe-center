@@ -1,8 +1,8 @@
 import { Difficulty } from "./difficulty";
 import { NutritionInfo } from "./nutritionInfo";
 
-export interface Recipe {
-    id: number;
+export class Recipe {
+    id: number | undefined;
     name?: string | undefined;
     description?: string[] | undefined;
     ingredients?: string[] | undefined;
@@ -10,6 +10,11 @@ export interface Recipe {
     calories?: number | undefined;
     servings?: number | undefined;
     durationInMinutes?: number | undefined;
+    nutritionInfoId?: number | null;
     nutritionInfo?: NutritionInfo;
-    difficulty: Difficulty;
+    difficulty: Difficulty = Difficulty.None;
+    addedByUser: boolean = false;
+    image?: string | undefined;
+    imgaeId?: number | null;
+    ingredientsFound : string[] = [];
 }

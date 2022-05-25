@@ -1,30 +1,59 @@
 <mat-card class="card">
   <mat-card-header>
-    <mat-card-title>{{recipe.name}}</mat-card-title>
+    <div class="headers">
+      <mat-card-title routerLink="/search-recipes/id/{{recipe.id}}">{{recipe.name}}</mat-card-title>
+      <div class="x-class">
+        <button class="material-icons" (click)="openDialog()" *ngIf="router.url.includes('profile')">
+          delete_forever
+        </button>
+      </div>
+    </div>
   </mat-card-header>
-  <mat-card-content>
-    <div class="icons">
-      <span class="icon-span">
-        <mat-icon svgIcon="meal-kcal" class="icon"></mat-icon>
-        <span *ngIf="recipe.calories !== null">
-          {{recipe.calories}} kcal
+  <mat-card-content routerLink="/search-recipes/id/{{recipe.id}}">
+    <div class="row">
+      <div class="image-span">
+        <img class='image' [src]="'data:image/png;base64,' +  recipe.image"
+        [title]='recipe.name' />
+      </div>
+
+      <mat-chip-list class="chips" *ngIf="!router.url.includes('pantry')">
+        <mat-chip *ngFor="let category of recipe.categories; let i = index" color="primary">
+          {{category}}
+        </mat-chip>
+      </mat-chip-list>
+
+      <mat-chip-list class="chips" *ngIf="router.url.includes('pantry')">
+        <mat-chip *ngFor="let ingredient of recipe.ingredientsFound; let i = index" color="primary">
+          {{ingredient}}
+        </mat-chip>
+      </mat-chip-list>
+
+      <div class="icons">
+        <span class="icon-span">
+          <mat-icon svgIcon="meal-kcal" class="icon"></mat-icon>
+          <span *ngIf="recipe.calories !== null">
+            {{recipe.calories}} kcal
+          </span>
+          <span *ngIf="recipe.calories === null">
+            unknown
+          </span>
         </span>
-        <span *ngIf="recipe.calories === null">
-          unknown
+
+        <span class="icon-span">
+          <mat-icon svgIcon="clock" class="icon"></mat-icon>
+          {{recipe.durationInMinutes}} min
         </span>
-      </span>
-      <span class="icon-span">
-        <mat-icon svgIcon="clock" class="icon"></mat-icon>
-        {{recipe.durationInMinutes}} min
-      </span>
-      <span class="icon-span">
-        <mat-icon svgIcon="serving" class="icon"></mat-icon>
-        {{recipe.servings}} serving(s)
-      </span>
-      <span class="icon-span">
-        <mat-icon svgIcon="speedometer" class="icon"></mat-icon>
-        {{getDifficulty()}}
-      </span>
+
+        <span class="icon-span">
+          <mat-icon svgIcon="serving" class="icon"></mat-icon>
+          {{recipe.servings}} serving(s)
+        </span>
+
+        <span class="icon-span">
+          <mat-icon svgIcon="speedometer" class="icon"></mat-icon>
+          {{getDifficulty()}}
+        </span>
+      </div>
     </div>
   </mat-card-content>
 </mat-card>

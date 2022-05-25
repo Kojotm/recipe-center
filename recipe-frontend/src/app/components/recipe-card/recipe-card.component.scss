@@ -1,11 +1,13 @@
 .card {
     margin: 0.5rem;
     min-height: 10rem;
+    max-height: 200px;
+    min-width: 300px;
+    width: 66rem;
 }
 
 .icons {
     display: grid;
-    justify-content: end;
 }
 
 .icon-span {
@@ -17,4 +19,29 @@
 .icon {
     margin-right: 0.4rem;
     color: white;
+}
+
+.image {
+  width: 135px;
+  margin: 2px;
+  margin-left: 1rem;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.chips{
+  width: 74%;
+}
+
+.headers {
+  display: flex;
+  flex-direction: row;
+  width: 66rem;
+}
+
+.x-class {
+  margin-left: auto;
 }

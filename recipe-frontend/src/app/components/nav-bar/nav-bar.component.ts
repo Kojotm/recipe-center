@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { AuthGuardService } from 'src/app/services/auth-guard.service';
+import { Component } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { RecipeService } from 'src/app/services/recipe.service';
 
 @Component({
@@ -8,30 +8,18 @@ import { RecipeService } from 'src/app/services/recipe.service';
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.scss']
 })
-export class NavBarComponent implements OnInit, OnDestroy {
-  private loggedIn = false;
-  loginSub = new Subscription();
-
+export class NavBarComponent {
   constructor(private recipeService: RecipeService,
-              public authGuardService: AuthGuardService) { }
-
-  ngOnInit(): void {
-    this.loginSub = this.authGuardService.getLoggedIn().subscribe(bool => {
-      this.loggedIn = bool;
-    });
-  }
+     private localStorageService: LocalStorageService,
+     private jwtHelperService: JwtHelperService) { }
 
   isLoggedIn() {
-    return this.loggedIn;
+    let token = this.localStorageService.get("token");
+
+    return token !== null && !this.jwtHelperService.isTokenExpired(token);
   }
 
   setFilterToBasic() {
     this.recipeService.setRecipeFilterToBasic();
-  }
-
-  ngOnDestroy(): void {
-   if (this.loginSub) {
-      this.loginSub.unsubscribe();
-   }
   }
 }

@@ -6,6 +6,7 @@ using Persistence;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Drawing;
 
 namespace InitialiseDatabase
 {
@@ -34,7 +35,22 @@ namespace InitialiseDatabase
             ctx.Database.EnsureCreated();
 
             ctx.Recipes.AddRange(recipes);
+
+            string imagePath = "Data/placeholder.png";
+            var image = ImageToBytes(imagePath);
+
+            ctx.Images.AddRange(new Image() { ImageBytes = image });
+
             ctx.SaveChanges();
+        }
+
+        private static byte[] ImageToBytes(string path)
+        {
+            FileStream stream = new(path, FileMode.Open, FileAccess.Read);
+            BinaryReader reader = new(stream);
+
+            byte[] imageByteArray = reader.ReadBytes((int)stream.Length);
+            return imageByteArray;
         }
 
         private static List<Recipe> ReadJson(string path)
@@ -62,7 +78,8 @@ namespace InitialiseDatabase
                             Sodium = item.GetValue("sodium").ToObject<double?>(),
                             Fats = item.GetValue("fat").ToObject<double?>(),
                             Protein = item.GetValue("protein").ToObject<double?>()
-                        }
+                        },
+                        ImageId = 1
                     });
                 }
             }

@@ -1,0 +1,21 @@
+<div class="background">
+  <form class="form" [formGroup]="formGroup" (submit)="login()">
+    <mat-form-field class="full-width">
+       <mat-label>Email</mat-label>
+       <input  matInput name="email" appearance="fill" formControlName="email" required>
+    </mat-form-field>
+    <mat-form-field class="full-width password">
+       <mat-label>Password</mat-label>
+       <input matInput name="password" appearance="fill" formControlName="password" required [type]="show ? 'text': 'password'">
+       <button mat-icon-button matSuffix (click)="show = !show" [attr.aria-label]="'show / hide password'" [attr.aria-pressed]="show" type="button">
+          <mat-icon>{{show ? 'visibility_off' : 'visibility'}}</mat-icon>
+       </button>
+    </mat-form-field>
+    <div>
+      <button mat-raised-button (click)="login()" type="submit" (keyup.enter)="login()"
+              [disabled]="formGroup.get('email')?.invalid || formGroup.get('password')?.invalid">Login</button>
+     </div>
+ </form>
+</div>
+<app-loading-indicator></app-loading-indicator>
+

@@ -1,0 +1,68 @@
+<div [ngClass]="recipes.length === 0 ? 'background' : 'background-overflow'">
+  <form class="form" [formGroup]="formGroup">
+
+    <div class="form-field-div">
+      <mat-form-field class="filter diff" appearance="fill">
+        <mat-label>Gender*</mat-label>
+        <mat-select (selectionChange)="setGender($event.value)">
+          <mat-option value="Male">
+            Male
+          </mat-option>
+          <mat-option value="Female">
+            Female
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="form-field-div">
+      <mat-form-field class="filter diff" appearance="fill">
+        <mat-label>Activity*</mat-label>
+        <mat-select (selectionChange)="setActivity($event.value)">
+          <mat-option *ngFor="let activity of activities" [value]="activity">
+            {{activity}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="form-field-div">
+      <mat-form-field class="form-field">
+        <mat-label>Age</mat-label>
+        <input placeholder="Age" matInput formControlName="age" type="number" value="0">
+        <mat-hint *ngIf="this.formGroup.get('age')?.value < 2">
+          Add valid age!
+        </mat-hint>
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <mat-label>Height (cm)</mat-label>
+        <input placeholder="(cm)" matInput formControlName="height" type="number" value="0">
+        <mat-hint *ngIf="this.formGroup.get('height')?.value < 40">
+          Add valid height!
+        </mat-hint>
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <mat-label>Weight (kg)</mat-label>
+        <input placeholder="(kg)" matInput formControlName="weight" type="number" value="0">
+        <mat-hint *ngIf="this.formGroup.get('weight')?.value < 10">
+          Add valid weight!
+        </mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div class="form-field-div">
+      <p class="buttons">
+        <button mat-raised-button [disabled]="formGroup.invalid || gender === '' || activity === ''" (click)="onSubmit()">Get recipes</button>
+      </p>
+    </div>
+  </form>
+
+  <div class="recipes">
+    <app-recipe-card *ngFor="let recipe of recipes" [recipe]="recipe" class="recipe-card"
+                     routerLink="/search-recipes/id/{{recipe.id}}">
+    </app-recipe-card>
+  </div>
+</div>
+<app-loading-indicator></app-loading-indicator>

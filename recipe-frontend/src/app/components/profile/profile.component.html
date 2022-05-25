@@ -1,5 +1,12 @@
-<div *ngIf="socialAuthService.authState | async as socialUser">
-  <p>Hello, {{socialUser.name}}!</p>
-  <p>Your email: {{socialUser.email}}</p>
-  <button mat-raised-button (click)="logout()">Logout</button>
+<div [ngClass]="recipes.length < 5 ? 'background' : 'background-overflow'">
+  <div class="content">
+    <button mat-raised-button (click)="addRecipe()">Add new recipe</button>
+    <button mat-raised-button (click)="logout()">Logout</button>
+    <div class="scrolling-recipes" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()" [scrollWindow]="true">
+      <app-recipe-card [recipe]="recipe"
+                      *ngFor="let recipe of recipes">
+      </app-recipe-card>
+    </div>
+  </div>
 </div>
+<app-loading-indicator></app-loading-indicator>

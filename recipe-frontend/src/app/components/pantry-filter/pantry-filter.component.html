@@ -1,6 +1,16 @@
 
+<div class="dropdown">
+  <mat-form-field appearance="fill" class="form-field">
+    <mat-label>Max number of missing ingredients</mat-label>
+    <mat-select [(value)]="maxNumberOfMissingIngredients">
+      <mat-option *ngFor="let number of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" [value]="number">
+        {{number}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
 <div>
-  <mat-form-field class="filter search" appearance="fill">
+  <mat-form-field class="filter search form-field" appearance="fill">
   <mat-label>Add ingredient</mat-label>
   <input matInput [(ngModel)]="ingredientToAdd" (keyup.enter)="addIngredient()">
   <mat-hint>Type in one of your ingredients</mat-hint>

@@ -1,24 +1,56 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SocialAuthService } from 'angularx-social-login';
-import { AuthGuardService } from 'src/app/services/auth-guard.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { Recipe } from 'src/app/models/recipe';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { RecipeService } from 'src/app/services/recipe.service';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit {
+  recipes: Recipe[] = [];
+  count = 1;
+  notScrolling = true;
 
-  constructor(private router: Router,
-              public socialAuthService: SocialAuthService,
-              private authGuardService: AuthGuardService) {
+  constructor(private router: Router, private localStorageService: LocalStorageService,
+              private recipeService: RecipeService, private spinner: NgxSpinnerService) {
+  }
+
+  ngOnInit(): void {
+    this.getOwnRecipes();
+  }
+
+  addRecipe() {
+    this.router.navigate(['profile/add-recipe']);
   }
 
   logout() {
-    this.socialAuthService.signOut()
-      .then(() => {
-        this.authGuardService.loggedOutSuccessfully();
-        this.router.navigate(['welcome-page'])});
+    this.localStorageService.remove("token");
+    this.router.navigate(['welcome-page']);
+  }
+
+  getOwnRecipes() {
+    this.spinner.show();
+    this.recipeService.getOwnRecipes().subscribe(response => {
+      this.recipes = this.recipes.concat(response);
+      this.notScrolling = true;
+      this.spinner.hide();
+    });
+  }
+
+  onScroll() {
+    if(this.notScrolling){
+      this.spinner.show();
+      this.notScrolling = false;
+      this.count++;
+      this.recipeService.getOwnRecipes(this.count).subscribe(response => {
+        this.recipes = this.recipes.concat(response);
+        this.notScrolling = true;
+        this.spinner.hide();
+    });
+    }
   }
 }

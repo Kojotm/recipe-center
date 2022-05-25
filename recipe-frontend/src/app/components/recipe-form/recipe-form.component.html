@@ -1,0 +1,102 @@
+<div class="background">
+  <h1>Add recipe</h1>
+  <h2>Please add the items split by enters!</h2>
+
+  <form class="form" [formGroup]="formGroup">
+    <div class="form-field-div">
+      <h3>Name</h3>
+      <mat-form-field class="form-field">
+        <input placeholder="Name" matInput formControlName="name" required>
+      </mat-form-field>
+    </div>
+
+    <div class="form-field-div">
+      <h3>Calories</h3>
+      <mat-form-field class="form-field">
+        <mat-label>Calories</mat-label>
+        <input placeholder="Calories" matInput formControlName="calories" type="number" value="0">
+      </mat-form-field>
+    </div>
+
+    <div class="form-field-div">
+      <h3>Servings</h3>
+      <mat-form-field class="form-field">
+        <mat-label>Servings</mat-label>
+        <input placeholder="Calories" matInput formControlName="servings" type="number" value="0">
+      </mat-form-field>
+    </div>
+
+    <div class="form-field-div">
+      <h3>Duration in minutes</h3>
+      <mat-form-field class="form-field">
+        <mat-label>Duration in minutes</mat-label>
+        <input placeholder="Calories" matInput formControlName="durationInMinutes" type="number" value="0">
+      </mat-form-field>
+    </div>
+
+    <div class="form-field-div">
+      <h3>Nutritions</h3>
+      <mat-form-field class="form-field">
+        <mat-label>Fats</mat-label>
+        <input placeholder="Fats" matInput formControlName="fats" type="number" value="0">
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <mat-label>Protein</mat-label>
+        <input placeholder="Protein" matInput formControlName="protein" type="number" value="0">
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <mat-label>Sodium</mat-label>
+        <input placeholder="Sodium" matInput formControlName="sodium" type="number" value="0">
+      </mat-form-field>
+    </div>
+
+    <div class="form-field-div">
+      <p class="buttons">
+        <button mat-raised-button [disabled]="formGroup.invalid" (click)="onSubmit()">Submit</button>
+        <button mat-raised-button class="clear-button" (click)="clear()">Clear</button>
+      </p>
+    </div>
+
+  </form>
+  <form class="form2" [formGroup]="formGroup">
+    <div class="form-field-div">
+      <h3>Description</h3>
+      <textarea matInput
+      placeholder="Type here the description of the recipe"
+      cdkTextareaAutosize
+      cdkAutosizeMinRows="1"
+      cdkAutosizeMaxRows="50"
+      formControlName="description"
+      maxlength="300"
+      required>
+      </textarea>
+  </div>
+
+  <div class="form-field-div">
+    <h3>Ingredients</h3>
+    <textarea matInput
+    placeholder="Type here the ingredients of the recipe"
+    cdkTextareaAutosize
+    cdkAutosizeMinRows="1"
+    cdkAutosizeMaxRows="50"
+    formControlName="ingredients"
+    maxlength="300"
+    required>
+    </textarea>
+  </div>
+
+  <div class="form-field-div">
+    <h3>Categories</h3>
+    <textarea matInput
+    placeholder="Type here the categories of the recipe"
+    cdkTextareaAutosize
+    cdkAutosizeMinRows="1"
+    cdkAutosizeMaxRows="50"
+    formControlName="categories"
+    maxlength="300">
+    </textarea>
+  </div>
+  </form>
+</div>

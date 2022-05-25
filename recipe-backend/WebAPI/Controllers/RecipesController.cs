@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Models;
-using Persistence;
 using Services;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
@@ -13,10 +10,12 @@ namespace WebAPI.Controllers
     public class RecipesController : ControllerBase
     {
         private readonly RecipeService recipeService;
+        private readonly UserService userService;
 
-        public RecipesController(RecipeService service)
+        public RecipesController(RecipeService service, UserService userService)
         {
             recipeService = service;
+            this.userService = userService;
         }
 
         // GET: api/Recipes/5
@@ -25,6 +24,18 @@ namespace WebAPI.Controllers
         {
             DRecipe result = await recipeService.GetRecipeById(id);
             return new ActionResult<DRecipe>(result); 
+        }
+
+        [HttpPost("get-by-user-id")]
+        public ActionResult<DRecipe[]> GetRecipeByUserId(string userId, int pageNumber = 1, int pageSize = 20)
+        {
+            if (int.TryParse(userId, out int id))
+            {
+                DRecipe[] result = recipeService.GetRecipeByUserId(id, pageNumber, pageSize);
+                return new ActionResult<DRecipe[]>(result);
+            }
+
+            return BadRequest("Wrong user id");
         }
 
         // PUT: api/Recipes/5
@@ -60,7 +71,7 @@ namespace WebAPI.Controllers
 
 
         [HttpPut("filter")]
-        public ActionResult<DRecipe[]> Filter(RecipeFilter recipeFilter ,int pageNumber = 1, int pageSize = 20)
+        public ActionResult<DRecipe[]> Filter(RecipeFilter recipeFilter, int pageNumber = 1, int pageSize = 20)
         {
             var result = recipeService.FilterRecipes(recipeFilter, pageNumber, pageSize);
             return new ActionResult<DRecipe[]>(result);
@@ -68,29 +79,37 @@ namespace WebAPI.Controllers
 
         // POST: api/Recipes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Recipe>> PostRecipe(Recipe recipe)
+        [HttpPost("add-recipe")]
+        public ActionResult<bool> AddRecipe(AddRecipe recipe, string token)
         {
-            //_context.Recipes.Add(recipe);
-            //await _context.SaveChangesAsync();
+            if(!userService.CheckIfAuthorized(token))
+            {
+                return Unauthorized("Need a valid token");
+            }
 
-            return CreatedAtAction("GetRecipe", new { id = recipe.Id }, recipe);
+            Recipe newRecipe = recipeService.AddRecipeToRecipe(recipe);
+
+            var success = recipeService.AddRecipe(newRecipe);
+            return new ActionResult<bool>(success);
         }
 
-        // DELETE: api/Recipes/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRecipe(int id)
+        [HttpDelete("delete-recipe/{id}")]
+        public ActionResult<bool> DeleteRecipe(int id)
         {
-            //var recipe = await _context.Recipes.FindAsync(id);
+            //var recipe = recipeService.GetRecipeById(id);
             //if (recipe == null)
             //{
-            //    return NotFound();
+            //    return NotFound("No such recipe found");
             //}
 
-            //_context.Recipes.Remove(recipe);
-            //await _context.SaveChangesAsync();
+            return new ActionResult<bool>(recipeService.DeleteRecipe(id));
+        }
 
-            return NoContent();
+        [HttpPut("meal-plan-calculation")]
+        public ActionResult<DRecipe[]> MealPlanCalculation(MealPlanCalculation mealPlanCalculation)
+        {
+           var result = recipeService.GetRecipesForMealPlanner(mealPlanCalculation);
+            return new ActionResult<DRecipe[]>(result);
         }
     }
 }

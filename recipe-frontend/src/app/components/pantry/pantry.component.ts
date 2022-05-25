@@ -11,6 +11,7 @@ import { PantryService } from 'src/app/services/pantry.service';
 export class PantryComponent {
   recipes: Recipe[] = [];
 
+
   constructor(private spinner: NgxSpinnerService, private pantryService: PantryService) { }
 
   load(){

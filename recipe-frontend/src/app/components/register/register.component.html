@@ -1,0 +1,60 @@
+<div class="background">
+  <form [formGroup]="formGroup">
+    <h1>Registration</h1>
+
+    <table  cellspacing="0">
+      <tr>
+        <td>
+          <mat-form-field>
+            <mat-label>First name</mat-label>
+            <input matInput formControlName="firstName">
+          </mat-form-field>
+        </td>
+
+        <td>
+          <mat-form-field>
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="lastName">
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+
+    <table  cellspacing="0"><tr>
+      <td>
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input name="email" matInput formControlName="email" required>
+        </mat-form-field></td>
+      </tr>
+    </table>
+
+    <table  cellspacing="0"><tr>
+      <td>
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input type="password" matInput formControlName="password" required>
+        </mat-form-field>
+      </td>
+      </tr>
+
+      <tr>
+        <mat-form-field>
+          <mat-label>Confirm password</mat-label>
+          <input type="password" matInput formControlName="password2" required>
+        </mat-form-field>
+      </tr>
+      <tr *ngIf="formGroup.get('password2')?.value != '' &&
+                 formGroup.get('password')?.value != formGroup.get('password2')?.value">
+        The two passwords are not the same!
+      </tr>
+    </table>
+    <div>
+      <button mat-raised-button [disabled]="formGroup.invalid ||
+      (formGroup.get('password2')?.value != '' && formGroup.get('password')?.value != formGroup.get('password2')?.value)"
+       (click)="register()">Register</button>
+      <button mat-raised-button class="clear" (click)="clear()">Clear</button>
+    </div>
+  </form>
+</div>
+<app-loading-indicator></app-loading-indicator>

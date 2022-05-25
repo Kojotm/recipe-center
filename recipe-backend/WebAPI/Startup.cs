@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 using Services;
+using Models;
 
 namespace WebAPI
 {
@@ -21,11 +22,15 @@ namespace WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<RecipeContext>(opt => opt.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=LocalRecipeDB"));
+            services.AddDbContext<RecipeContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("RecipeContext")));
 
             services.AddScoped<RecipeService>();
+            services.AddScoped<UserService>();
+
+            services.AddSingleton(Configuration.GetSection("Secrets").Get<Settings>());
 
             services.AddControllers();
+
             services.AddCors(options =>
             {
                 options.AddPolicy("EnableCORS", builder =>

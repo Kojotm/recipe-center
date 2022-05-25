@@ -17,5 +17,7 @@ namespace Models
         public virtual int? NutritionInfoId { get; set; }
         public virtual NutritionInfo NutritionInfo { get; set; }
         public int? DurationInMinutes { get; set; }
+        public int? UserId { get; set; }
+        public int ImageId { get; set; }
     }
 }

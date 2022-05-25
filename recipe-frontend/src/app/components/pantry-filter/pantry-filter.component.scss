@@ -1,7 +1,7 @@
 .filter {
   position: absolute;
   height: auto;
-  top: 8px;
+  top: 5rem;
   left: 16px;
 
   &.search{
@@ -16,6 +16,7 @@
 
   &.searchButton {
     margin-top: 9.5rem;
+    margin-left: 5rem;
   }
 }
 
@@ -23,4 +24,14 @@
   position: absolute;
   left: 13rem;
   top: -4.5rem;
+}
+
+.dropdown {
+  position: absolute;
+  top: 5rem;
+  left: 1rem;
+}
+
+.form-field {
+  width: 17rem;
 }
