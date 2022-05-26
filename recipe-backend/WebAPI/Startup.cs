@@ -35,7 +35,7 @@ namespace WebAPI
             {
                 options.AddPolicy("EnableCORS", builder =>
                 {
-                    builder.WithOrigins("https://localhost:4200")
+                    builder.AllowAnyOrigin()
                     .AllowAnyHeader()
                     .AllowAnyMethod();
                 });
